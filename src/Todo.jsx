@@ -28,7 +28,7 @@ export const Todo = () => {
         const newTodos = [...incompleteTodos];
         newTodos.splice(index, 1);
         setIncompleteTodos(newTodos);
-    }
+    };
 
     const onClickComplete = (index) => {
         const newIncompleteTodos = [...incompleteTodos];
@@ -37,7 +37,7 @@ export const Todo = () => {
         const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
         setIncompleteTodos(newIncompleteTodos);
         setCompleteTodos(newCompleteTodos);
-    }
+    };
 
     const onClickBack = (index) => {
         const newCompleteTodos = [...completeTodos];
@@ -47,7 +47,9 @@ export const Todo = () => {
 
         setCompleteTodos(newCompleteTodos);
         setIncompleteTodos(newIncompleteTodos);
-    }
+    };
+
+    const isMaxLimitIncompleteTodos = incompleteTodos.length >= 5;
 
     return (
         <>
@@ -55,8 +57,13 @@ export const Todo = () => {
                 todoText={todoText}
                 onChange={onChangeTodoText}
                 onClick={onClickAdd}
+                disabled={isMaxLimitIncompleteTodos}
             />
-
+            {isMaxLimitIncompleteTodos && (
+                <p style={{ color: "red" }}>
+                    登録できるTODOは5個までだよ!
+                </p>
+            )}
             <IncompleteTodos
              todos={incompleteTodos}
              onClickComplete={onClickComplete}
